@@ -1,0 +1,50 @@
+name: Deploy Frontend to AWS EC2
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'frontend/**'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'frontend/**'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '18'
+        cache: 'npm'
+        cache-dependency-path: frontend/package-lock.json
+    
+    - name: Install dependencies
+      run: |
+        cd frontend
+        npm ci
+    
+    - name: Build frontend
+      run: |
+        cd frontend
+        npm run build
+      env:
+        REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}
+    
+    - name: Deploy to EC2
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.EC2_HOST }}
+        username: ${{ secrets.EC2_USERNAME }}
+        key: ${{ secrets.EC2_SSH_KEY }}
+        script: |
+          cd /var/www/carrental/frontend
+          git pull origin main
+          npm ci
+          npm run build
+          pm2 restart carrental-frontend || pm2 serve build 3000 --name carrental-frontend 
