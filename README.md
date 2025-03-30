@@ -1,68 +1,91 @@
-# **Assignment: Full-Stack CRUD Application Development with DevOps Practices**
+# Car Rental Application
 
-## **Objective**
+A web-based car rental management system built with the MERN stack (MongoDB, Express.js, React.js, Node.js).
 
-You have been provided with a starter project that includes user authentication using  **Node.js, React.js, and MongoDB**. Your task is to extend this application by implementing **CRUD (Create, Read, Update, Delete) operations** for a real-world application of your choice, while following industry best practices such as:
+## Features
 
-* **Project Management with JIRA**
-* **Requirement Diagram using SysML**
-* **Version Control using GitHub**
-* **CI/CD Integration for Automated Deployment**
+- User authentication (login/register)
+- Browse available cars
+- Add, edit, and delete car listings
+- User-friendly interface
+- Secure API endpoints
 
-## **Requirements**
+## Prerequisites
 
-### **1. Choose a Real-World Application**
+- Node.js (v14 or higher)
+- MongoDB
+- npm or yarn
 
-Select a meaningful use case for your CRUD operations. We will provide the list, you have to select it.
+## Installation
 
-### **2. Project Management with JIRA and SysML**
+1. Clone the repository:
+```bash
+git clone <your-repository-url>
+cd car-rental-app
+```
 
-* Create a **JIRA project** and define:
-  * **Epic**
-  * **User Stories** (features required in your app)
-  * **Child issues & Subtasks** (breaking down development work)
-  * **Sprint Planning** (organizing work into milestones)
-* Document your JIRA **board URL** in the project README.
-* Draw a requirements diagram
+2. Install backend dependencies:
+```bash
+cd backend
+npm install
+```
 
-### **3. Backend Development (Node.js + Express + MongoDB)**
+3. Install frontend dependencies:
+```bash
+cd frontend
+npm install
+```
 
-* Create a user-friendly interface to interact with your API (Some portion developed, follow task manager app)).
-* Implement **forms** for adding and updating records.
-* Display data using  **tables, cards, or lists (Follow how we showed data in task manager app)**
+## Configuration
 
-### **4. Frontend Development (React.js)**
+1. Create a `.env` file in the backend directory:
+```env
+PORT=5001
+MONGO_URI=your_mongodb_connection_string
+JWT_SECRET=your_secret_key
+```
 
-* Create a user-friendly interface to interact with your API (**Some portion developed, follow task manager app)**.
-* Implement **forms** for adding, showing, deleting and updating records (CRUD).
-* Display data using  **tables, cards, or lists (Follow how we showed data in task manager app)**
+2. Create a `.env` file in the frontend directory:
+```env
+REACT_APP_API_URL=http://localhost:5001/api
+```
 
-### **5. Authentication & Authorization**
+## Running the Application
 
-* Ensure **only authenticated users** can access and perform CRUD operations. (Already developed in your project)
-* Use **JWT (JSON Web Tokens)** for user authentication (Use the task manager one from .env file).
+### Development Mode
 
-### **6. GitHub Version Control & Branching Strategy**
+Start the backend server:
+```bash
+cd backend
+npm run dev
+```
 
-* Use **GitHub for version control** and maintain:
-  * `main` branch (stable production-ready code)
-  * Feature branches (`feature/xyz`) for each new functionality
-* Follow proper **commit messages** and  **pull request (PR) reviews** .
+Start the frontend development server:
+```bash
+cd frontend
+npm start
+```
 
-### **7. CI/CD Pipeline Setup**
+The application will be available at:
+- Frontend: http://localhost:3000
+- Backend API: http://localhost:5001
 
-* Implement a **CI/CD pipeline using GitHub Actions** to:
-  * Automatically **run tests** on every commit/pull request (Optional).
-  * Deploy the **backend** to **AWS** .
-  * Deploy the **frontend** to **AWS**.
-* Document your  **CI/CD workflow in the README** .
+## API Routes
 
-## **Submission Requirements**
+- Authentication:
+  - POST `/api/auth/register` - Register new user
+  - POST `/api/auth/login` - Login user
 
-* **JIRA Project Board URL** (user stories ).
-* **Requirment diagram** (Using project features)
-* **GitHub Repository** (`backend/` and `frontend/`).
-* **README.md** with:
+- Cars:
+  - GET `/api/cars` - Get all cars
+  - POST `/api/cars` - Add new car
+  - PUT `/api/cars/:id` - Update car
+  - DELETE `/api/cars/:id` - Delete car
 
-  * Project setup instructions.
-  * CI/CD pipeline details.
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch
+3. Commit your changes
+4. Push to the branch
+5. Create a pull request
